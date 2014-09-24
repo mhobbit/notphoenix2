@@ -9,10 +9,13 @@ public class DoppelgangerMove : MonoBehaviour {
 	private Vector3 target;
 	private float timeCounter = 0;
 	private float time = 0;
+	private float angle;
 
 	// Use this for initialization
 	void Start () {
-		target = GameObject.Find ("Ship(Clone)").transform.position;
+		GameObject go = GameObject.Find ("Ship(Clone)");
+		target = go.transform.position;
+		angle = Random.Range (0, 360);
 	}
 
 	public Vector3 getTarget(){
@@ -32,10 +35,10 @@ public class DoppelgangerMove : MonoBehaviour {
 			timeCounter = timeCounter - Time.deltaTime * speed * Mathf.Abs(input);
 		}
 
-		float angle = Vector2.Angle (Vector2.right, target);
+		//float angle = Vector3.Angle (target, Vector2.right);
 		
-		float x = Mathf.Cos (timeCounter * diff) * time;
-		float y = Mathf.Sin (timeCounter * diff) * time;
+		float x = Mathf.Cos ((timeCounter + angle) * diff) * time;
+		float y = Mathf.Sin ((timeCounter + angle) * diff) * time;
 
 		Vector2 circle = new Vector2 (x, y);
 
